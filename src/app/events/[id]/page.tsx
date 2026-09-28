@@ -20,34 +20,52 @@ export default async function EventDetailPage({
   const open = isUpcoming(event.startsAt);
 
   return (
-    <main className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-5">
-      <section className="lg:col-span-3">
-        <p className="text-sm font-semibold uppercase tracking-widest text-[#8a6a0a]">
+    <main className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-5">
+      <section className="lg:col-span-3 border-l-2 border-slate-800 pl-6 sm:pl-8">
+        <div className="inline-block border border-neon-purple bg-neon-purple/10 px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-neon-purple">
           {event.category}
-        </p>
-        <h1 className="mt-2 font-serif text-4xl text-[var(--navy)]">
+        </div>
+        
+        <h1 className="mt-6 font-display text-4xl text-white uppercase tracking-wider sm:text-5xl">
           {event.name}
         </h1>
-        <p className="mt-4 flex items-center gap-2 text-[var(--muted)]">
-          <CalendarClock size={18} />
-          {formatEventWhen(event.startsAt)}
-        </p>
-        <p className="mt-2 flex items-center gap-2 text-[var(--muted)]">
-          <MapPin size={18} />
-          {event.venue}
-        </p>
-        <p className="mt-6 max-w-2xl text-lg leading-8">{event.description}</p>
+        
+        <div className="mt-6 flex flex-col gap-4 border-l-2 border-slate-800 pl-4">
+          <p className="flex items-center gap-3 font-mono text-sm uppercase tracking-wider text-slate-300">
+            <CalendarClock size={18} className="text-neon-cyan" />
+            {formatEventWhen(event.startsAt)}
+          </p>
+          <p className="flex items-center gap-3 font-mono text-sm uppercase tracking-wider text-slate-300">
+            <MapPin size={18} className="text-neon-cyan" />
+            {event.venue}
+          </p>
+        </div>
+        
+        <div className="mt-8 relative">
+          <p className="max-w-2xl text-lg leading-relaxed text-slate-400">
+            {event.description}
+          </p>
+        </div>
       </section>
+      
       <aside className="lg:col-span-2">
         {done === "1" ? (
-          <div className="rounded-2xl border border-green-200 bg-green-50 p-6 text-green-900">
-            You are registered. See you at {event.venue}.
+          <div className="relative border border-[#00ff9d] bg-[#00ff9d]/10 p-6 shadow-[0_0_20px_rgba(0,255,157,0.15)]">
+            <div className="absolute top-0 right-0 h-4 w-4 border-t-2 border-r-2 border-[#00ff9d]"></div>
+            <h3 className="font-display text-lg font-bold text-[#00ff9d] uppercase tracking-widest">
+              &gt; Registration Confirmed
+            </h3>
+            <p className="mt-3 font-mono text-sm text-[#00ff9d]/80 uppercase leading-relaxed">
+              Slot secured in the database. See you at {event.venue}.
+            </p>
           </div>
         ) : open ? (
           <RegisterForm eventId={event.id} />
         ) : (
-          <div className="rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-6 text-[var(--muted)]">
-            Registration is closed for this event.
+          <div className="border border-slate-800 bg-[#050505] p-6 text-center">
+            <p className="font-mono text-sm uppercase tracking-widest text-slate-500">
+              &gt; System alert: Registration window has elapsed. Access denied.
+            </p>
           </div>
         )}
       </aside>

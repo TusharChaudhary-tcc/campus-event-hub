@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit } from "next/font/google";
+import { Orbitron, Rajdhani } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const rajdhani = Rajdhani({
+  variable: "--font-rajdhani",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
 });
 
@@ -24,9 +25,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${rajdhani.variable} ${orbitron.variable} h-full antialiased dark`}
     >
-      <body className="flex min-h-full flex-col">
+      {/* Set the deep dark mode canvas globally and added a custom selection color */}
+      <body className="flex min-h-full flex-col bg-gray-950 text-gray-50 font-sans selection:bg-cyan-500/30">
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />

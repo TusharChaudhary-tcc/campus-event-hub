@@ -1,22 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --navy: #12263a;
-  --ink: #1b2d41;
-  --gold: #e0b14a;
-  --cream: #f4ead8;
-  --paper: #fffcf7;
-  --muted: #5d6d7e;
-  --line: #e4d9c5;
-  --background: var(--cream);
-  --foreground: var(--ink);
+  /* Gaming / Cyberpunk Color Palette */
+  --cyber-black: #050505;
+  --cyber-dark: #0f172a;
+  --neon-cyan: #00f0ff;
+  --neon-purple: #b026ff;
+  --neon-pink: #ff003c;
+  --muted: #94a3b8;
+  --line: #1e293b;
+  
+  --background: var(--cyber-black);
+  --foreground: #f8fafc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit);
-  --font-serif: var(--font-fraunces);
+  
+  /* Map the new fonts from layout.tsx */
+  --font-sans: var(--font-rajdhani);
+  --font-display: var(--font-orbitron);
+  
+  /* Custom utility colors for Tailwind (e.g., text-neon-cyan, bg-neon-purple) */
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-purple: var(--neon-purple);
+  --color-neon-pink: var(--neon-pink);
 }
 
 html {
@@ -24,17 +33,24 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-outfit), system-ui, sans-serif;
-  background-image:
-    radial-gradient(circle at top left, rgba(224, 177, 74, 0.18), transparent 28%),
-    linear-gradient(180deg, #f7efe0 0%, #efe4cf 100%);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  
+  /* Cyber-grid background with a top cyan glow */
+  background-image: 
+    radial-gradient(circle at top, rgba(0, 240, 255, 0.15) 0%, transparent 40%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
+/* Apply the Orbitron tech font to all headings and add a sharp uppercase look */
 h1,
 h2,
 h3,
-.font-serif {
-  font-family: var(--font-fraunces), Georgia, serif;
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
