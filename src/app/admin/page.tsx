@@ -46,6 +46,12 @@ export default async function AdminHomePage() {
           >
             Query Database
           </Link>
+          <Link
+            href="/admin/feedback"
+            className="border border-slate-700 bg-transparent px-5 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-slate-300 transition-all hover:border-neon-pink hover:bg-neon-pink/5 hover:text-neon-pink"
+          >
+            View Diagnostics
+          </Link>
           <LogoutButton />
         </div>
       </div>

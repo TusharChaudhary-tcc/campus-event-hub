@@ -32,3 +32,11 @@ model Registration {
 
   @@unique([eventId, email])
 }
+
+
+model Feedback {
+  id          String   @id @default(cuid())
+  category    String
+  description String
+  createdAt   DateTime @default(now())
+}

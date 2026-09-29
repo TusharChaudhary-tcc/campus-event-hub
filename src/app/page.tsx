@@ -27,12 +27,12 @@ export default async function HomePage() {
         <p className="text-sm font-bold uppercase tracking-[0.3em] text-neon-purple drop-shadow-[0_0_8px_var(--color-neon-purple)]">
           {CLUB.chapter}
         </p>
-        {/* <h1 className="mt-4 max-w-4xl font-display text-4xl leading-tight text-white sm:text-6xl uppercase tracking-wide">
-          Club nights, contests, and workshops — <span className="text-neon-cyan">without the WhatsApp chaos.</span>
-        </h1> */}
         <h1 className="mt-4 max-w-4xl font-display text-4xl leading-tight text-white sm:text-6xl uppercase tracking-wide">
+          Club nights, contests, and workshops — <span className="text-neon-cyan">without the WhatsApp chaos.</span>
+        </h1>
+        {/* <h1 className="mt-4 max-w-4xl font-display text-4xl leading-tight text-white sm:text-6xl uppercase tracking-wide">
   ALGORITHMIC ARENAS & DEV QUESTS — <span className="text-neon-cyan">LEVEL UP YOUR TECH STACK.</span>
-</h1>
+</h1> */}
 <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-400">
   Join the lobby. From weekly logic scrimmages to full-scale hackathons, this is where theory meets execution. Pick your stack, join the queue, and boost your developer rank.
 </p>

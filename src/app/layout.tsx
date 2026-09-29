@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Orbitron, Rajdhani } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { FeedbackConsole } from "@/components/FeedbackConsole";
 import "./globals.css";
 
 const rajdhani = Rajdhani({
@@ -21,17 +22,23 @@ export const metadata: Metadata = {
     "College club event management — browse events, register, and run the club calendar.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
       className={`${rajdhani.variable} ${orbitron.variable} h-full antialiased dark`}
     >
       {/* Set the deep dark mode canvas globally and added a custom selection color */}
-      <body className="flex min-h-full flex-col bg-gray-950 text-gray-50 font-sans selection:bg-cyan-500/30">
+      <body className="flex min-h-full flex-col bg-[#050505] text-gray-50 font-sans selection:bg-cyan-500/30">
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />
+        {/* Render the floating console across the entire application */}
+        <FeedbackConsole />
       </body>
     </html>
   );

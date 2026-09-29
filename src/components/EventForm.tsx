@@ -53,7 +53,7 @@ export function EventForm({
     const json = (await res.json()) as { error?: string };
     setPending(false);
     if (!res.ok) {
-      setError(json.error ?? "Could not save event");
+      setError(json.error ?? "System failure: Could not save event data.");
       return;
     }
     router.push("/admin");
@@ -61,41 +61,48 @@ export function EventForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid max-w-2xl gap-4">
-      <label className="grid gap-1 text-sm">
-        Event name
+    <form onSubmit={onSubmit} className="grid gap-6">
+      <label className="grid gap-2 font-mono text-xs uppercase tracking-widest text-slate-400">
+        [SYS.NODE_ID] / Event Name
         <input
           name="name"
           required
           defaultValue={initial?.name}
-          className="h-11 rounded-xl border border-[var(--line)] px-3"
+          placeholder="ENTER EVENT IDENTIFIER"
+          className="h-12 rounded-none border border-slate-700 bg-[#050505] px-4 font-mono text-sm text-white placeholder-slate-600 outline-none transition-all focus:border-neon-cyan focus:shadow-[inset_0_0_15px_rgba(0,240,255,0.1)]"
         />
       </label>
-      <label className="grid gap-1 text-sm">
-        Date & time
-        <input
-          name="startsAt"
-          type="datetime-local"
-          required
-          defaultValue={initial ? toLocalInput(initial.startsAt) : ""}
-          className="h-11 rounded-xl border border-[var(--line)] px-3"
-        />
-      </label>
-      <label className="grid gap-1 text-sm">
-        Venue
-        <input
-          name="venue"
-          required
-          defaultValue={initial?.venue}
-          className="h-11 rounded-xl border border-[var(--line)] px-3"
-        />
-      </label>
-      <label className="grid gap-1 text-sm">
-        Category
+      
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <label className="grid gap-2 font-mono text-xs uppercase tracking-widest text-slate-400">
+          [SYS.TIMESTAMP] / Date & Time
+          <input
+            name="startsAt"
+            type="datetime-local"
+            required
+            defaultValue={initial ? toLocalInput(initial.startsAt) : ""}
+            className="h-12 w-full rounded-none border border-slate-700 bg-[#050505] px-4 font-mono text-sm text-white outline-none transition-all focus:border-neon-cyan focus:shadow-[inset_0_0_15px_rgba(0,240,255,0.1)] [color-scheme:dark]"
+          />
+        </label>
+        
+        <label className="grid gap-2 font-mono text-xs uppercase tracking-widest text-slate-400">
+          [SYS.LOCATION] / Venue
+          <input
+            name="venue"
+            required
+            defaultValue={initial?.venue}
+            placeholder="ENTER COORDINATES OR ROOM"
+            className="h-12 rounded-none border border-slate-700 bg-[#050505] px-4 font-mono text-sm text-white placeholder-slate-600 outline-none transition-all focus:border-neon-cyan focus:shadow-[inset_0_0_15px_rgba(0,240,255,0.1)]"
+          />
+        </label>
+      </div>
+
+      <label className="grid gap-2 font-mono text-xs uppercase tracking-widest text-slate-400">
+        [SYS.CLASS] / Category
         <select
           name="category"
           defaultValue={initial?.category ?? "Workshop"}
-          className="h-11 rounded-xl border border-[var(--line)] px-3"
+          className="h-12 rounded-none border border-slate-700 bg-[#050505] px-4 font-mono text-sm text-white outline-none transition-all focus:border-neon-cyan focus:shadow-[inset_0_0_15px_rgba(0,240,255,0.1)]"
         >
           {CATEGORIES.map((c) => (
             <option key={c} value={c}>
@@ -104,35 +111,60 @@ export function EventForm({
           ))}
         </select>
       </label>
-      <label className="grid gap-1 text-sm">
-        Description
+      
+      <label className="grid gap-2 font-mono text-xs uppercase tracking-widest text-slate-400">
+        [SYS.DATA_LOG] / Description
         <textarea
           name="description"
           required
           rows={5}
           defaultValue={initial?.description}
-          className="rounded-xl border border-[var(--line)] px-3 py-2"
+          placeholder="ENTER EVENT PARAMETERS AND DETAILS..."
+          className="resize-none rounded-none border border-slate-700 bg-[#050505] p-4 font-mono text-sm text-white placeholder-slate-600 outline-none transition-all focus:border-neon-cyan focus:shadow-[inset_0_0_15px_rgba(0,240,255,0.1)]"
         />
       </label>
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          name="featured"
-          type="checkbox"
-          defaultChecked={initial?.featured}
-        />
-        Featured event (shown on home)
-      </label>
+      
+      <div className="flex items-center gap-4 border border-slate-800 bg-[#0a0f1d] p-4">
+        <div className="relative flex h-5 w-5 items-center justify-center">
+          <input
+            name="featured"
+            type="checkbox"
+            defaultChecked={initial?.featured}
+            className="peer h-5 w-5 appearance-none border border-slate-500 bg-[#050505] outline-none transition-all checked:border-neon-cyan checked:bg-neon-cyan/20 focus:shadow-[0_0_10px_rgba(0,240,255,0.3)] cursor-pointer"
+          />
+          {/* Custom Checkmark Overlay */}
+          <div className="pointer-events-none absolute text-neon-cyan opacity-0 peer-checked:opacity-100">
+            ✓
+          </div>
+        </div>
+        <div className="grid gap-1">
+          <p className="font-display text-sm font-bold uppercase tracking-wider text-white">
+            [SYS.PRIORITY_FLAG]
+          </p>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-slate-400">
+            Promote to Home Cluster (Featured Event)
+          </p>
+        </div>
+      </div>
+      
       {error ? (
-        <p className="text-sm text-red-700" role="alert">
-          {error}
-        </p>
+        <div className="border border-neon-pink/50 bg-neon-pink/5 p-4 animate-pulse" role="alert">
+          <p className="font-mono text-sm uppercase tracking-widest text-neon-pink">
+            &gt; {error}
+          </p>
+        </div>
       ) : null}
+      
       <button
         type="submit"
         disabled={pending}
-        className="h-11 rounded-full bg-[var(--navy)] px-5 text-sm font-medium text-white disabled:opacity-60"
+        className="mt-4 h-14 w-full border border-neon-cyan bg-neon-cyan/10 font-display text-sm font-bold uppercase tracking-widest text-neon-cyan transition-all hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_20px_var(--color-neon-cyan)] disabled:opacity-50 disabled:hover:bg-neon-cyan/10 disabled:hover:text-neon-cyan disabled:hover:shadow-none"
       >
-        {pending ? "Saving…" : eventId ? "Save changes" : "Add event"}
+        {pending 
+          ? "Transmitting Data..." 
+          : eventId 
+            ? "Update Node Configuration" 
+            : "Execute Node Initialization"}
       </button>
     </form>
   );
