@@ -40,3 +40,13 @@ model Feedback {
   description String
   createdAt   DateTime @default(now())
 }
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
