@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -8,15 +9,15 @@ datasource db {
 }
 
 model Event {
-  id            String          @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String
   description   String
   venue         String
   startsAt      DateTime
   category      String
-  featured      Boolean         @default(false)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  featured      Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   registrations Registration[]
 }
 
@@ -33,20 +34,9 @@ model Registration {
   @@unique([eventId, email])
 }
 
-
 model Feedback {
   id          String   @id @default(cuid())
   category    String
   description String
   createdAt   DateTime @default(now())
-}
-
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
-}
-
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
 }
